@@ -59,9 +59,11 @@ public class BBSServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
+		request.setCharacterEncoding("UTF-8");
 		String message = request.getParameter("value");
 		if (message == null || message.length() == 0) {
 			showNoData(out);
+//			return;
 		}
 
 		bbs.add(message);
@@ -75,7 +77,15 @@ public class BBSServlet extends HttpServlet {
 		out.println("<input type='submit' value='書き込み'></form>");
 
 		for (String data : bbs) {
+			if (data.equals("Hello")){
+				out.println("<h3><font color=\"purple\">" + data + "</font></h3>");
+			}
+			else if ( data.length() == 3) {
+				out.println("<h3><font color=\"blue\">" + data + "</font></h3>");
+			}
+			else {
 			out.println("<h3>" + data + "</h3>");
+			}
 		}
 		out.println("</body></html>");
 	}
@@ -83,7 +93,7 @@ public class BBSServlet extends HttpServlet {
 	private void showNoData(PrintWriter out) {
 		// TODO 自動生成されたメソッド・スタブ
 		out.println("<html><head><title>showNoData</title></head><body>");
-		out.println("<h3>入力してください</h3>");
+		out.println("<h1><font color=\"red\">入力してください</font></h1>");
 		out.println("</body></html>");
 	}
 
