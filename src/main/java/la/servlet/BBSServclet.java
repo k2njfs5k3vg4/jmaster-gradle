@@ -39,6 +39,10 @@ public class BBSServclet extends HttpServlet {
 				if (date.equals("hello")) {
 					out.println("<hr align='left' width='100%'>");
 					out.println("<font color='red'>" + date + "</font><br>");
+				} else if (date.equals("delete")) {
+					DeleteMessage();
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='red'>" + date + "</font><br>");
 				} else {
 					out.println("<hr align='left' width='100%'>");
 					out.println("<d>" + date + "</d><br>");
@@ -50,7 +54,7 @@ public class BBSServclet extends HttpServlet {
 
 	public void DeleteMessage() {
 		System.out.println("aaaa");
-		list.remove(0);
+		list.remove(list.size() - 1);
 	}
 
 }
