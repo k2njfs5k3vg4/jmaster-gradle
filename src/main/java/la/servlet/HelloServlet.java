@@ -27,6 +27,7 @@ public class HelloServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+		System.out.println();
 	}
 
 	public static String introduce(String name) {
