@@ -45,17 +45,44 @@ public class PlusServlet extends HttpServlet {
 		//リクエストパラメータの読み込み
 		String num1 = request.getParameter("value1");
 		String num2 = request.getParameter("value2");
+		if (num1 == null || num1.length() == 0 || num2 == null
+				|| num2.length() == 0) {
+			//未入力データあり
+			showNotEnterdError(out);
+			return;
+		}
 
 		//足し算の実行
-		int i1 = Integer.parseInt(num1);
-		int i2 = Integer.parseInt(num2);
-		int answer = i1 + i2;
+		int answer = 0;
+		try {
+			int i1 = Integer.parseInt(num1);
+			int i2 = Integer.parseInt(num2);
+			answer = i1 + i2;
+
+		} catch (NumberFormatException e) {
+			//整数でない
+			showNotIntegerError(out);
+			return;
+		}
 
 		//答えの出力
 		out.println("<html><head><title>Plus</title></head><body>");
 		out.println(num1 + "+" + num2 + "=" + answer);
 		out.println("</body></html>");
 		//doGet(request, response);
+	}
+
+	private void showNotIntegerError(PrintWriter out) {
+		out.println("<html><head><title>Plus</title></head><body>");
+		out.println("<h1>整数ではない値が入力されました</h1>");
+		out.println("</body></html>");
+	}
+
+	private void showNotEnterdError(PrintWriter out) {
+		out.println("<html><head><title>Plus</title></head><body>");
+		out.println("<h1>整数を二つ入力してください</h1>");
+		out.println("</body></html>");
+
 	}
 
 }
