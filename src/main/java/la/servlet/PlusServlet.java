@@ -23,6 +23,7 @@ public class PlusServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -31,6 +32,7 @@ public class PlusServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
@@ -38,13 +40,40 @@ public class PlusServlet extends HttpServlet {
 
 		String num1 = request.getParameter("value1");
 		String num2 = request.getParameter("value2");
+		if(num1 == null || num1.length() == 0 || num2 == null || num2.length() == 0) {
+			//			未入力データあり
+			showNotEnterdError(out);
+			return;
+		}
 
-		int i1 = Integer.parseInt(num1);
-		int i2 = Integer.parseInt(num2);
-		int answer = i1 + i2;
+		int answer = 0;
+
+		try {
+			int i1 = Integer.parseInt(num1);
+			int i2 = Integer.parseInt(num2);
+			answer = i1 + i2;
+
+		}catch(NumberFormatException e) {
+			//			整数でない
+			showNotIntegerError(out);
+			return;
+		}
+
 
 		out.println("<html><head><title>Plus</title></head><body>");
 		out.println(num1 + "+" + num2 + "=" + answer);
+		out.println("</body></html>");
+	}
+
+	private void showNotIntegerError(PrintWriter out) {
+		out.println("<html><head><title>Plus</title></head><body>");
+		out.println("<h1>整数でない値が入力されました</h1>");
+		out.println("</body></html>");
+	}
+
+	private void showNotEnterdError(PrintWriter out) {
+		out.println("<html><head><title>Plus</title></head><body>");
+		out.println("<h1>整数を2つ入力してください</h1>");
 		out.println("</body></html>");
 	}
 
