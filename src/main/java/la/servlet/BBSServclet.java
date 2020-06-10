@@ -31,6 +31,8 @@ public class BBSServclet extends HttpServlet {
 		out.println("<form action='/jmaster-gradle/BBSServclet' method='get'>");
 		out.println("<textarea name='message'>入力してください</textarea><br>");
 		out.println("<input type = 'submit' value='書き込み'></form>");
+		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
+
 		for (String date : list) {
 			if (date == null) {
 			} else {
@@ -44,6 +46,11 @@ public class BBSServclet extends HttpServlet {
 			}
 		}
 		out.println("</body></html>");
+	}
+
+	public void DeleteMessage() {
+		System.out.println("aaaa");
+		list.remove(0);
 	}
 
 }
