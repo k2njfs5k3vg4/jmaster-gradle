@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +29,8 @@ public class BBSServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String newComment = request.getParameter("commentArea");
 
-		out.println("<html><head><title>掲示板</title></head><body>");
+		out.println("<html><head><title>掲示板</title>"
+				+ "<style>.size{font-size:150%}</style></head><body>");
 		out.println("<form action='/jmaster-gradle/BBSServlet' method='post'>");
 		out.println("メッセージ：<br>");
 		out.println("<textarea name='commentArea' rows='4' cols='40'></textarea><br>");
@@ -38,8 +41,17 @@ public class BBSServlet extends HttpServlet {
 				commentList.add(request.getParameter("commentArea"));
 			}
 			for (String comment : commentList) {
-				out.println(comment + "<br>");
-				out.println("<hr>");
+				Matcher m = Pattern.compile("はじめまして.*").matcher(comment);
+				if (m.find()) {
+					out.println("<span class='size'>" + comment + "</span><br>");
+					out.println("<hr>");
+					//				if (comment.contentEquals(h)) {
+					//					out.println("<span class='size'>" + comment + "</span><br>");
+					//					out.println("<hr>");
+				} else {
+					out.println(comment + "<br>");
+					out.println("<hr>");
+				}
 			}
 		}
 
