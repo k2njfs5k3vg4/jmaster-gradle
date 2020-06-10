@@ -19,6 +19,7 @@ public class BBSServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private List<String> list = new ArrayList<String>();
+	private boolean flag = false;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,7 +41,12 @@ public class BBSServlet extends HttpServlet {
 
 		out.println("<html><head><title>BBS</title></head><body>");
 
+		if (this.flag) {
+			out.println("<h1 style=\"color: blue;\">エラー</h1>");
+		}
+
 		out.println("メッセージ:<form action=\"/jmaster-gradle/BBSServlet\" method=\"post\">");
+
 		out.println("<textarea name=\"message\" rows=\"4\" cols=\"40\"></textarea>");
 		out.println("<br>");
 		out.println("<input type=\"submit\" value=\"書き込み\">");
@@ -67,9 +73,12 @@ public class BBSServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String message = request.getParameter("message");
 
-
-		this.list.add(message);
-
+		if (message == null || message.length() == 0) {
+			this.flag = true;
+		} else {
+			this.list.add(message);
+			this.flag = false;
+		}
 		doGet(request, response);
 	}
 
