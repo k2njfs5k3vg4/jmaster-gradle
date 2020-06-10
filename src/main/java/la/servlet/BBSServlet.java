@@ -31,6 +31,7 @@ public class BBSServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -43,6 +44,8 @@ public class BBSServlet extends HttpServlet {
 		out.println("<textarea name=\"message\" rows=\"4\" cols=\"40\"></textarea>");
 		out.println("<br>");
 		out.println("<input type=\"submit\" value=\"書き込み\">");
+		out.println("<input type=\"reset\" value=\"リセット\">");
+
 		out.println("</form>");
 
 		for (String string : list) {
@@ -58,11 +61,15 @@ public class BBSServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String message = request.getParameter("message");
+
+
 		this.list.add(message);
+
 		doGet(request, response);
 	}
 
