@@ -60,6 +60,9 @@ public class BBSServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String message = request.getParameter("value");
+		if (message == null || message.length() == 0) {
+			showNoData(out);
+		}
 
 		bbs.add(message);
 
@@ -74,6 +77,13 @@ public class BBSServlet extends HttpServlet {
 		for (String data : bbs) {
 			out.println("<h3>" + data + "</h3>");
 		}
+		out.println("</body></html>");
+	}
+
+	private void showNoData(PrintWriter out) {
+		// TODO 自動生成されたメソッド・スタブ
+		out.println("<html><head><title>showNoData</title></head><body>");
+		out.println("<h3>入力してください</h3>");
 		out.println("</body></html>");
 	}
 
