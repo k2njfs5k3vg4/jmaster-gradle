@@ -32,19 +32,6 @@ public class BBSServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		doPost(request, response);
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		//request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><title>BBSServlet</title></head><meta charset=\"UTF-8\"><body>");
@@ -55,13 +42,32 @@ public class BBSServlet extends HttpServlet {
 		out.println("<input type=\"submit\" value=\"書き込み\"><br>");
 		request.setCharacterEncoding("UTF-8");
 
-		if (request.getParameter("message") != null) {
-			list.add(request.getParameter("message"));
-		}
+		String s = "";
+		s = request.getParameter("message");
+		if (s != "") {
+			list.add(s);
+
+		} else
+			out.println("入力してください");
+
 		for (String li : list) {
-			out.println("<hr>" + li);
+			if (s != null && li != null && li != "")
+				out.println("<hr>" + li);
 		}
-		out.println("<hr></body></html>");
+
+		out.println("</body></html>");
+		//doPost(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		//request.setCharacterEncoding("UTF-8");
 
 	}
 
