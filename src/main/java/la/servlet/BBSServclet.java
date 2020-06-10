@@ -34,8 +34,13 @@ public class BBSServclet extends HttpServlet {
 		for (String date : list) {
 			if (date == null) {
 			} else {
-				out.println("<hr align='left' width='100%'>");
-				out.println("<d>" + date + "</d><br>");
+				if (date.equals("hello")) {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='red'>" + date + "</font><br>");
+				} else {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<d>" + date + "</d><br>");
+				}
 			}
 		}
 		out.println("</body></html>");
