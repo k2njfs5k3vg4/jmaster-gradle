@@ -33,11 +33,13 @@ public class PlusServlet extends HttpServlet {
 			int i2 = Integer.parseInt(num2);
 			answer = i1 + i2;
 
-			request.setAttribute("data1", Integer.valueOf(i1));
-			request.setAttribute("data2", Integer.valueOf(i2));
+			//			request.setAttribute("data1", Integer.valueOf(i1));
+			//			request.setAttribute("data2", Integer.valueOf(i2));
+			request.setAttribute("data1", i1);
+			request.setAttribute("data2", i2);
 			request.setAttribute("answer", Integer.valueOf(answer));
 
-			RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet");
+			RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet2");
 			rd.forward(request, response);
 
 		} catch (NumberFormatException e) {
@@ -45,9 +47,14 @@ public class PlusServlet extends HttpServlet {
 			return;
 		}
 
-//		out.println("<html><head><title>Plus</title></head><body>");
-//		out.println(num1 + "+" + num2 + "=" + answer);
-//		out.println("</body></html>");
+		//		out.println("<html><head><title>Plus</title></head><body>");
+		//		out.println(num1 + "+" + num2 + "=" + answer);
+		//		out.println("</body></html>");
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	private void showNotEnterdError(PrintWriter out) {
