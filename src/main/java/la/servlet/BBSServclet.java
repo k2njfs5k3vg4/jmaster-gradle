@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class BBSServclet
@@ -19,113 +18,46 @@ import javax.servlet.http.HttpSession;
 public class BBSServclet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<String> list = new ArrayList<String>();
-	//	List<String> store = new ArrayList<String>();
-	private static final String USER = "jack";
-	private static final String PASS = "abc";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		//		actionリクエストのパラメータ読み込み
-		String action = request.getParameter("action");
-		if (action.equals("login")) {
-			String name = request.getParameter("name");
-			String passWord = request.getParameter("pw");
-			if (name.equals(USER) && passWord.equals(PASS)) {
-				HttpSession session = request.getSession();
-				session.setAttribute("isLogin", true);
-
-				//ここから掲示板コンテンツ
-				String s = request.getParameter("message");
-				list.add(s);
-				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
-				out.println("<d>メッセージ：</d><br>");
-				out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
-				out.println("<textarea name='message'>入力してください</textarea><br>");
-				out.println("<input type = 'submit' value='書き込み'></form>");
-				//		out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
-				//		out.println("<input type = 'submit' value='削除'></form>");
-
-				for (String data : list) {
-					if (data == null) {
-					} else {
-						if (data.equals("hello")) {
-							out.println("<hr align='left' width='100%'>");
-							out.println("<font color='red'>" + data + "</font><br>");
-						} else if (data.length() == 3) {
-							out.println("<hr align='left' width='100%'>");
-							out.println("<font color='blue'>" + data + "</font><br>");
-						} else {
-							out.println("<hr align='left' width='100%'>");
-							out.println("<d>" + data + "</d><br>");
-						}
-
-					}
-				}
-				out.println("</body></html>");
-
-			} else {
-				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
-				out.println("<h1>ユーザ名またはパスワードが違います</h1>");
-				out.println("</body></html>");
-			}
-		}
-		else {
-			out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
-			out.println("<h1>ログインできていません</h1>");
-			out.println("</body></html>");
-		}
-
-		//セッション領域の取得
-		//		HttpSession session = request.getSession();
-		//		@SuppressWarnings("unchecked")
 
 	}
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		//ここから掲示板コンテンツ
+		String s = request.getParameter("message");
+		list.add(s);
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
-		out.println("<h1>ログインできていません</h1>");
+		out.println("<d>メッセージ：</d><br>");
+		out.println("<form action='/jmaster-gradle/BBSServclet' method='get'>");
+		out.println("<textarea name='message'>入力してください</textarea><br>");
+		out.println("<input type = 'submit' value='書き込み'></form>");
+
+		out.println("<form action='/jmaster-gradle/LoginServlet' method='post'>");
+		out.println("<input type='hidden' name='action' value='logout'><br>");
+		out.println("<input type = 'submit' value='ログアウト'></form>");
+
+		for (String data : list) {
+			if (data == null) {
+			} else {
+				if (data.equals("hello")) {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='red'>" + data + "</font><br>");
+				} else if (data.length() == 3) {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='blue'>" + data + "</font><br>");
+				} else {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<d>" + data + "</d><br>");
+				}
+
+			}
+		}
 		out.println("</body></html>");
-
-
 	}
-
-	//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	//			throws ServletException, IOException {
-	//		System.out.println("list（変更前）" + list);
-	//		int size = list.size() - 2;
-	//		if (size >= 0) {
-	//			store.clear();
-	//			for (String data : list) {
-	//				if (data != null) {
-	//					store.add(data);
-	//				}
-	//			}
-	//			store.remove(size);
-	//			list.clear();
-	//
-	//			for (String data2 : store) {
-	//				if (data2 != null) {
-	//					list.add(data2);
-	//				}
-	//			}
-	//
-	//			System.out.println("list（変更後）" + list);
-	//			System.out.println("store" + store);
-	//			System.out.println(size);
-	//		} else {
-	//			store.clear();
-	//			list.clear();
-	//		}
-	//		this.doGet(request, response);
-	//	}
-
 }
