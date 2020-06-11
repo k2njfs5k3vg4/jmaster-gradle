@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class BBSServclet
@@ -29,6 +30,8 @@ public class BBSServclet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		String name = (String) session.getAttribute("username");
 		//ここから掲示板コンテンツ
 		String s = request.getParameter("message");
 		list.add(s);
@@ -47,13 +50,13 @@ public class BBSServclet extends HttpServlet {
 			} else {
 				if (data.equals("hello")) {
 					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='red'>" + data + "</font><br>");
+					out.println(name + "：<font color='red'>" + data + "</font><br>");
 				} else if (data.length() == 3) {
 					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='blue'>" + data + "</font><br>");
+					out.println(name + "：<font color='blue'>" + data + "</font><br>");
 				} else {
 					out.println("<hr align='left' width='100%'>");
-					out.println("<d>" + data + "</d><br>");
+					out.println(name + "：<d>" + data + "</d><br>");
 				}
 
 			}
