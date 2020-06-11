@@ -50,7 +50,12 @@ public class BBSServclet extends HttpServlet {
 				if (data.equals("hello")) {
 					out.println("<hr align='left' width='100%'>");
 					out.println("<font color='red'>" + data + "</font><br>");
-				} else {
+				}
+				else if (data.length() == 3) {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='blue'>" + data + "</font><br>");
+				}
+				else {
 					out.println("<hr align='left' width='100%'>");
 					out.println("<d>" + data + "</d><br>");
 				}
