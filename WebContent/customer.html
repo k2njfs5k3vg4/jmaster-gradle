@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/jmaster-gradle/CustomerServlet" method="post">
+名前：<input type="text" name="name"><br>
+住所：<input type="text" name="address"><br>
+電話：<input type="text" name="tell"><br>
+<input type="hidden" name="action" value="register">
+<input type="submit" value="登録">
+</form>
+<a href='/jmaster-gradle/CustomerServlet?action=confirm'>情報確認</a><br>
+
+</body>
+</html>
