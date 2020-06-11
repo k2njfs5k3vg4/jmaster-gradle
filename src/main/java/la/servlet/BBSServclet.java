@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BBSServclet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<String> list = new ArrayList<String>();
+	List<String> store = new ArrayList<String>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,7 +32,8 @@ public class BBSServclet extends HttpServlet {
 		out.println("<form action='/jmaster-gradle/BBSServclet' method='get'>");
 		out.println("<textarea name='message'>入力してください</textarea><br>");
 		out.println("<input type = 'submit' value='書き込み'></form>");
-		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
+		out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
+		out.println("<input type = 'submit' value='削除'></form>");
 
 		for (String date : list) {
 			if (date == null) {
@@ -43,14 +45,40 @@ public class BBSServclet extends HttpServlet {
 					out.println("<hr align='left' width='100%'>");
 					out.println("<d>" + date + "</d><br>");
 				}
+
 			}
 		}
 		out.println("</body></html>");
 	}
 
-	public void DeleteMessage() {
-		System.out.println("aaaa");
-		list.remove(0);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("list（変更前）" + list);
+		int size = list.size() - 2;
+		if (size >= 0) {
+			store.clear();
+			for (String date : list) {
+				if (date != null) {
+					store.add(date);
+				}
+			}
+			store.remove(size);
+			list.clear();
+
+			for (String date2 : store) {
+				if (date2 != null) {
+					list.add(date2);
+				}
+			}
+
+			System.out.println("list（変更後）" + list);
+			System.out.println("store" + store);
+			System.out.println(size);
+		} else {
+			store.clear();
+			list.clear();
+		}
+		this.doGet(request, response);
 	}
 
 }

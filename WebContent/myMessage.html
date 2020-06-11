@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>メッセージ入力</title>
+</head>
+<body>
+<form action="/jmaster-gradle/MessageServlet" method="post">
+	メッセージをどうぞ！<br>
+	メッセージ：
+	<input type='text' name='message'><br>
+	文字サイズ：
+	<input type='radio' name='mozi' value='big'>大
+	<input type='radio' name='mozi' value='middle'>中
+	<input type='radio' name='mozi' value='small'>小<br>
+	<input type='submit' value='送信'>
+</form>
+</body>
+</html>
