@@ -16,14 +16,12 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	//private static final long serialVersionUID = 1L;
-
-	private static final String USER = "jack";
-	private static final String PASS = "abc";
+	private static final String[] USER = { "kawamura", "hosodo" };
+	private static final String[] PASS = { "himitu", "tumihi" };
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><title>LoginServlet</title></head><body>");
@@ -36,26 +34,28 @@ public class LoginServlet extends HttpServlet {
 		//actionリクエスト
 		String action = request.getParameter("action");
 		if (action != null) {
-			//userとpass取得
-			String name = request.getParameter("name");
-			String passWord = request.getParameter("pw");
+			if (action.contentEquals("login")) {
+				//userとpass取得
+				String name = request.getParameter("name");
+				String passWord = request.getParameter("pw");
 
-			if (name.contentEquals(USER) && passWord.contentEquals(PASS)) {
-				//userとpass一致
-				HttpSession session = request.getSession();
-				//login済み
-				session.setAttribute("isLogin", "true");
-				session.setAttribute("usename", USER);
-				//BBSServletへ
-				out.println("</body></html>");
-				response.sendRedirect("/jmaster-gradle/BBSServlet");
+				for (int i = 0; i < USER.length; i++) {
+					if (name.contentEquals(USER[i]) && passWord.contentEquals(PASS[i])) {
+						//userとpass一致
+						HttpSession session = request.getSession();
+						//login済み
+						session.setAttribute("isLogin", "true");
+						session.setAttribute("username", USER[i]);
+						//BBSServletへ
+						out.println("</body></html>");
+						response.sendRedirect("/jmaster-gradle/BBSServlet");
 
-			} else {
+					}
+				}
 				out.println("<h1>ユーザー名またはパスワードが違います</h1>");
 				out.println("</body></html>");
-			}
 
-			if (action.contentEquals("logout")) {
+			} else if (action.contentEquals("logout")) {
 
 				//logout
 				HttpSession session = request.getSession(false);
@@ -66,6 +66,8 @@ public class LoginServlet extends HttpServlet {
 					out.println("</body></html>");
 				}
 			}
+		} else {
+			out.println("</body></html>");
 		}
 	}
 
