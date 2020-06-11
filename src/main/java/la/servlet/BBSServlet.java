@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 public class BBSServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<String> list = new ArrayList<String>();
+	String u;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,9 +32,11 @@ public class BBSServlet extends HttpServlet {
 		String pass = request.getParameter("PASS");
 		String s = request.getParameter("message");
 
+		u = user;
+
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
 
-		if (user.equals("jack") && pass.equals("abc")) {
+		if ("jack".equals(user) && "abc".equals(pass)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", "true");
 		} else {
@@ -63,6 +66,11 @@ public class BBSServlet extends HttpServlet {
 				return;
 			}
 		}
+
+		if ("logout".equals(s)) {
+			session.setAttribute("isLogin", "false");
+		}
+
 		//		@SuppressWarnings("unchecked")
 		//		List<String> arlist = (ArrayList<String>) session.getAttribute("message");
 		//		if (arlist == null) {
@@ -71,34 +79,32 @@ public class BBSServlet extends HttpServlet {
 		//		}
 		//		arlist.add(s);
 
-		if (!s.equals(null)) {
-			list.add(s);
+		list.add(s);
 
-			out.println("<d>メッセージ：</d><br>");
-			out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
-			out.println("<textarea name='message'>入力してください</textarea><br>");
-			out.println("<input type = 'submit' value='書き込み'></form>");
-			//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
+		out.println("<d>メッセージ：</d><br>");
+		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
+		out.println("<textarea name='message'>入力してください</textarea><br>");
+		out.println("<input type = 'submit' value='書き込み'></form>");
+		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
 
-			for (String date : list) {
-				if (date == null) {
+		for (String date : list) {
+			if (date == null) {
+			} else {
+				if (date.equals("hello")) {
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='red'>" + date + "(by " + u + ")" + "</font><br>");
+				} else if (date.equals("delete")) {
+					DeleteMessage();
+					out.println("<hr align='left' width='100%'>");
+					out.println("<font color='red'>" + date + "(by " + u + ")" + "</font><br>");
 				} else {
-					if (date.equals("hello")) {
-						out.println("<hr align='left' width='100%'>");
-						out.println("<font color='red'>" + date + "</font><br>");
-					} else if (date.equals("delete")) {
-						DeleteMessage();
-						out.println("<hr align='left' width='100%'>");
-						out.println("<font color='red'>" + date + "</font><br>");
-					} else {
-						out.println("<hr align='left' width='100%'>");
-						out.println("<d>" + date + "</d><br>");
-					}
+					out.println("<hr align='left' width='100%'>");
+					out.println("<d>" + date + "(by " + u + ")" + "</d><br>");
 				}
 			}
-
 		}
 		out.println("</body></html>");
+		return;
 	}
 
 	public void DeleteMessage() {
