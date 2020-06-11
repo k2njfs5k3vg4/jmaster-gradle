@@ -43,7 +43,7 @@ public class BBSServlet extends HttpServlet {
 
 		out.println("<html><head><title>BBS</title></head><body>");
 
-		out.println("<form action='/jmaster-gradle/BBSServlet' method='post'>");
+		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
 		out.println("ユーザー名:<input type = 'text' name = 'name'><br>");
 		out.println("パスワード:<input type = 'password' name = 'pw'><br>");
 		out.println("<input type='hidden' name='action' value='login'>");
@@ -52,15 +52,14 @@ public class BBSServlet extends HttpServlet {
 
 		out.println("<h3>メッセージ</h3>");
 
-		out.println("<form action='/jmaster-gradle/BBSServlet' method='post'>");
+		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
 		out.println("<textarea name='value' rows='4' cols='40'>");
 		out.println("</textarea><br>");
 		out.println("<input type='submit' value='書き込み'></form>");
 
 		out.println("</body></html>");
 
-		////
-
+		////ログイン処理
 		String action = request.getParameter("action");
 		String name = request.getParameter("name");
 		String passWord = request.getParameter("pw");
@@ -89,8 +88,8 @@ public class BBSServlet extends HttpServlet {
 				return;
 			}
 		}
-		//
 
+		//ログイン済みかチェック
 		HttpSession session = request.getSession(false);
 		if (session == null) {
 			out.println("<html><head><title>Login</title></head><body>");
@@ -107,6 +106,7 @@ public class BBSServlet extends HttpServlet {
 			}
 		}
 
+		//元々doPostにあったコード
 		request.setCharacterEncoding("UTF-8");
 
 		//		HttpSession session = request.getSession();
@@ -130,7 +130,7 @@ public class BBSServlet extends HttpServlet {
 		out.println("<html><head><title>BBS</title></head><body>");
 		out.println("<h3>メッセージ</h3>");
 
-		out.println("<form action='/jmaster-gradle/BBSServlet' method='post'>");
+		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
 		out.println("<textarea name='value' rows='4' cols='40'>");
 		out.println("</textarea><br>");
 		out.println("<input type='submit' value='書き込み'></form>");
@@ -141,11 +141,12 @@ public class BBSServlet extends HttpServlet {
 			//			} else if (data.length() == 3) {
 			//				out.println("<h3><font color=\"blue\">" + data + "</font></h3>");
 			//			} else {
-			out.println("<h3>" + name + ":" + data + "<h3>");
+			out.println("<h3>" + USER + ":" + data + "<h3>");
 			//			out.println("<h3>" + data + "</h3>");
 			//			}
 		}
 		out.println("</body></html>");
+
 	}
 
 	/**
@@ -154,11 +155,11 @@ public class BBSServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
 
-		//		response.setContentType("text/html;charset=UTF-8");
-		//		PrintWriter out = response.getWriter();
-		//
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
 		//		request.setCharacterEncoding("UTF-8");
 		//
 		//		//		HttpSession session = request.getSession();
@@ -193,7 +194,7 @@ public class BBSServlet extends HttpServlet {
 		//			//			} else if (data.length() == 3) {
 		//			//				out.println("<h3><font color=\"blue\">" + data + "</font></h3>");
 		//			//			} else {
-		//			out.println("<h3>" + name + ":" + data + "<h3>");
+		//			out.println("<h3>" + USER + ":" + data + "<h3>");
 		//			//			out.println("<h3>" + data + "</h3>");
 		//			//			}
 		//		}
