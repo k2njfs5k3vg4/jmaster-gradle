@@ -34,14 +34,12 @@ public class LoginServlet extends HttpServlet {
 			if (name.equals(USER) && passWord.equals(PASS)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("isLogin", true);
-
-				//				String name = (String)session.getAttribute("username");
-				//				session.setAttribute("username", name);
+				session.setAttribute("username", name);
 
 				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
 				out.println("<d>メッセージ：</d><br>");
 				out.println("</body></html>");
-				response.sendRedirect("/jmaster-gradle/BBSServclet");
+				response.sendRedirect("/jmaster-gradle/BBSServclet?username");
 			} else {
 				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
 				out.println("<h1>ユーザ名またはパスワードが違います</h1>");
