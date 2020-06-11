@@ -3,6 +3,7 @@ package la.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,52 +18,84 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/BBSServclet")
 public class BBSServclet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//	List<String> list = new ArrayList<String>();
+	List<String> list = new ArrayList<String>();
 	//	List<String> store = new ArrayList<String>();
+	private static final String USER = "jack";
+	private static final String PASS = "abc";
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		//		actionリクエストのパラメータ読み込み
+		String action = request.getParameter("action");
+		if (action.equals("login")) {
+			String name = request.getParameter("name");
+			String passWord = request.getParameter("pw");
+			if (name.equals(USER) && passWord.equals(PASS)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("isLogin", true);
+
+				//ここから掲示板コンテンツ
+				String s = request.getParameter("message");
+				list.add(s);
+				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
+				out.println("<d>メッセージ：</d><br>");
+				out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
+				out.println("<textarea name='message'>入力してください</textarea><br>");
+				out.println("<input type = 'submit' value='書き込み'></form>");
+				//		out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
+				//		out.println("<input type = 'submit' value='削除'></form>");
+
+				for (String data : list) {
+					if (data == null) {
+					} else {
+						if (data.equals("hello")) {
+							out.println("<hr align='left' width='100%'>");
+							out.println("<font color='red'>" + data + "</font><br>");
+						} else if (data.length() == 3) {
+							out.println("<hr align='left' width='100%'>");
+							out.println("<font color='blue'>" + data + "</font><br>");
+						} else {
+							out.println("<hr align='left' width='100%'>");
+							out.println("<d>" + data + "</d><br>");
+						}
+
+					}
+				}
+				out.println("</body></html>");
+
+			} else {
+				out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
+				out.println("<h1>ユーザ名またはパスワードが違います</h1>");
+				out.println("</body></html>");
+			}
+		}
+		else {
+			out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
+			out.println("<h1>ログインできていません</h1>");
+			out.println("</body></html>");
+		}
+
+		//セッション領域の取得
+		//		HttpSession session = request.getSession();
+		//		@SuppressWarnings("unchecked")
+
+	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String s = request.getParameter("message");
-
-		//セッション領域の取得
-		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
-		ArrayList<String> list = (ArrayList<String>) session.getAttribute("msg");
-		if (list == null) {
-			list = new ArrayList<String>();
-			session.setAttribute("msg", list);
-		}
-		list.add(s);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
-		out.println("<d>メッセージ：</d><br>");
-		out.println("<form action='/jmaster-gradle/BBSServclet' method='get'>");
-		out.println("<textarea name='message'>入力してください</textarea><br>");
-		out.println("<input type = 'submit' value='書き込み'></form>");
-		//		out.println("<form action='/jmaster-gradle/BBSServclet' method='post'>");
-		//		out.println("<input type = 'submit' value='削除'></form>");
-
-		for (String data : list) {
-			if (data == null) {
-			} else {
-				if (data.equals("hello")) {
-					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='red'>" + data + "</font><br>");
-				}
-				else if (data.length() == 3) {
-					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='blue'>" + data + "</font><br>");
-				}
-				else {
-					out.println("<hr align='left' width='100%'>");
-					out.println("<d>" + data + "</d><br>");
-				}
-
-			}
-		}
+		out.println("<h1>ログインできていません</h1>");
 		out.println("</body></html>");
+
+
 	}
 
 	//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
