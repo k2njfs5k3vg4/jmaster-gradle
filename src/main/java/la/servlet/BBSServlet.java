@@ -20,8 +20,6 @@ public class BBSServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<String> list = new ArrayList<String>();
 
-
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,16 +33,15 @@ public class BBSServlet extends HttpServlet {
 
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
 
-		if(user == "jack"&&pass =="abc") {
+		if (user.equals("jack") && pass.equals("abc")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", "true");
-		}else {
+		} else {
 			out.println("<h1>ユーザ名またはパスワードが違います</h1>");
 		}
 
-
 		HttpSession session = request.getSession(false);
-		if(session==null) {
+		if (session == null) {
 			out.println("<h1>ログインしてください</h1>");
 			out.println("<d>メッセージ：</d><br>");
 			out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
@@ -53,9 +50,9 @@ public class BBSServlet extends HttpServlet {
 			out.println("<input type = 'submit' value='ログイン'></form>");
 			out.println("</body></html>");
 			return;
-		}else{
-			String isLogin = (String)session.getAttribute("isLogin");
-			if(isLogin==null|| !isLogin.equals("true")) {
+		} else {
+			String isLogin = (String) session.getAttribute("isLogin");
+			if (isLogin == null || !isLogin.equals("true")) {
 				out.println("<h1>tes</h1>");
 				out.println("<d>メッセージ：</d><br>");
 				out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
@@ -74,29 +71,32 @@ public class BBSServlet extends HttpServlet {
 		//		}
 		//		arlist.add(s);
 
-		list.add(s);
+		if (!s.equals(null)) {
+			list.add(s);
 
-		out.println("<d>メッセージ：</d><br>");
-		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
-		out.println("<textarea name='message'>入力してください</textarea><br>");
-		out.println("<input type = 'submit' value='書き込み'></form>");
-		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
+			out.println("<d>メッセージ：</d><br>");
+			out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
+			out.println("<textarea name='message'>入力してください</textarea><br>");
+			out.println("<input type = 'submit' value='書き込み'></form>");
+			//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
 
-		for (String date : list) {
-			if (date == null) {
-			} else {
-				if (date.equals("hello")) {
-					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='red'>" + date + "</font><br>");
-				} else if (date.equals("delete")) {
-					DeleteMessage();
-					out.println("<hr align='left' width='100%'>");
-					out.println("<font color='red'>" + date + "</font><br>");
+			for (String date : list) {
+				if (date == null) {
 				} else {
-					out.println("<hr align='left' width='100%'>");
-					out.println("<d>" + date + "</d><br>");
+					if (date.equals("hello")) {
+						out.println("<hr align='left' width='100%'>");
+						out.println("<font color='red'>" + date + "</font><br>");
+					} else if (date.equals("delete")) {
+						DeleteMessage();
+						out.println("<hr align='left' width='100%'>");
+						out.println("<font color='red'>" + date + "</font><br>");
+					} else {
+						out.println("<hr align='left' width='100%'>");
+						out.println("<d>" + date + "</d><br>");
+					}
 				}
 			}
+
 		}
 		out.println("</body></html>");
 	}
