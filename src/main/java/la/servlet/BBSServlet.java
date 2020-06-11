@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class BBSServlet
@@ -23,7 +24,17 @@ public class BBSServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String s = request.getParameter("message");
-		list.add(s);
+
+		HttpSession session = request.getSession();
+		@SuppressWarnings("unchecked")
+		List<String> arlist = (ArrayList<String>) session.getAttribute("message");
+		if (arlist == null) {
+			arlist = new ArrayList<String>();
+			session.setAttribute("message", arlist);
+		}
+		arlist.add(s);
+
+		//list.add(s);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
@@ -33,7 +44,7 @@ public class BBSServlet extends HttpServlet {
 		out.println("<input type = 'submit' value='書き込み'></form>");
 		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
 
-		for (String date : list) {
+		for (String date : arlist) {
 			if (date == null) {
 			} else {
 				if (date.equals("hello")) {
