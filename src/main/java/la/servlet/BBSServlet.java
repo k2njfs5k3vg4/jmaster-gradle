@@ -20,31 +20,69 @@ public class BBSServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<String> list = new ArrayList<String>();
 
+
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String s = request.getParameter("message");
-
-		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
-		List<String> arlist = (ArrayList<String>) session.getAttribute("message");
-		if (arlist == null) {
-			arlist = new ArrayList<String>();
-			session.setAttribute("message", arlist);
-		}
-		arlist.add(s);
-
-		//list.add(s);
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+
+		String user = request.getParameter("USER");
+		String pass = request.getParameter("PASS");
+		String s = request.getParameter("message");
+
 		out.println("<html><head><meta charset = 'utf-8'><title>掲示板</title></head><body>");
+
+		if(user == "jack"&&pass =="abc") {
+			HttpSession session = request.getSession();
+			session.setAttribute("isLogin", "true");
+		}else {
+			out.println("<h1>ユーザ名またはパスワードが違います</h1>");
+		}
+
+
+		HttpSession session = request.getSession(false);
+		if(session==null) {
+			out.println("<h1>ログインしてください</h1>");
+			out.println("<d>メッセージ：</d><br>");
+			out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
+			out.println("<input type = 'text' name='USER'>");
+			out.println("<input type = 'text' name='PASS'>");
+			out.println("<input type = 'submit' value='ログイン'></form>");
+			out.println("</body></html>");
+			return;
+		}else{
+			String isLogin = (String)session.getAttribute("isLogin");
+			if(isLogin==null|| !isLogin.equals("true")) {
+				out.println("<h1>tes</h1>");
+				out.println("<d>メッセージ：</d><br>");
+				out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
+				out.println("<input type = 'text' name='USER'>");
+				out.println("<input type = 'text' name='PASS'>");
+				out.println("<input type = 'submit' value='ログイン'></form>");
+				out.println("</body></html>");
+				return;
+			}
+		}
+		//		@SuppressWarnings("unchecked")
+		//		List<String> arlist = (ArrayList<String>) session.getAttribute("message");
+		//		if (arlist == null) {
+		//			arlist = new ArrayList<String>();
+		//			session.setAttribute("message", arlist);
+		//		}
+		//		arlist.add(s);
+
+		list.add(s);
+
 		out.println("<d>メッセージ：</d><br>");
 		out.println("<form action='/jmaster-gradle/BBSServlet' method='get'>");
 		out.println("<textarea name='message'>入力してください</textarea><br>");
 		out.println("<input type = 'submit' value='書き込み'></form>");
 		//		out.println("<input type='button' value='メッセージを一つ消す' onclick='list.remove(0)'>");
 
-		for (String date : arlist) {
+		for (String date : list) {
 			if (date == null) {
 			} else {
 				if (date.equals("hello")) {
