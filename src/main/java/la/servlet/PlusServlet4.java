@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PlusServlet
  */
-@WebServlet("/PlusServlet")
+@WebServlet("/PlusServlet4")
 public class PlusServlet4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +49,7 @@ public class PlusServlet4 extends HttpServlet {
 		request.setAttribute("data2", Integer.valueOf(i2));
 		request.setAttribute("answer", Integer.valueOf(answer));
 
-		RequestDispatcher rd = request.getRequestDispatcher("/AnserServlet");
+		RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet");
 		rd.forward(request, response);
 	}
 
