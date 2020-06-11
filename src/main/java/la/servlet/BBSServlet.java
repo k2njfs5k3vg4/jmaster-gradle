@@ -77,7 +77,7 @@ public class BBSServlet extends HttpServlet {
 			bbs = new ArrayList<String>();
 			session.setAttribute("message", bbs);
 		}
-
+		out.println("<h3>" + session.getId() + "</h3>");
 		bbs.add(message);
 
 		out.println("<html><head><title>BBS</title></head><body>");
