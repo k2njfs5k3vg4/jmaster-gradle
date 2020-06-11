@@ -3,6 +3,7 @@ package la.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +33,21 @@ public class PlusServlet extends HttpServlet {
 			int i2 = Integer.parseInt(num2);
 			answer = i1 + i2;
 
+			request.setAttribute("data1", Integer.valueOf(i1));
+			request.setAttribute("data2", Integer.valueOf(i2));
+			request.setAttribute("answer", Integer.valueOf(answer));
+
+			RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet");
+			rd.forward(request, response);
+
 		} catch (NumberFormatException e) {
 			showNotIntegerError(out);
 			return;
 		}
-		out.println("<html><head><title>Plus</title></head><body>");
-		out.println(num1 + "+" + num2 + "=" + answer);
-		out.println("</body></html>");
+
+//		out.println("<html><head><title>Plus</title></head><body>");
+//		out.println(num1 + "+" + num2 + "=" + answer);
+//		out.println("</body></html>");
 	}
 
 	private void showNotEnterdError(PrintWriter out) {
