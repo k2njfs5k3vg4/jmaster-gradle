@@ -40,7 +40,7 @@ public class PlusServlet extends HttpServlet {
 			//			request.setAttribute("data2", Integer.valueOf(i2));
 			request.setAttribute("plus", bean);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/answer.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/answer2.jsp");
 			rd.forward(request, response);
 
 		} catch (NumberFormatException e) {
