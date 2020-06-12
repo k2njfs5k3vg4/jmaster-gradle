@@ -19,6 +19,7 @@ public class PlusServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -37,7 +38,7 @@ public class PlusServlet extends HttpServlet {
 		//		request.setAttribute("data2", Integer.valueOf(i2));
 		//		request.setAttribute("answer", Integer.valueOf(answer));
 
-		RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet");
+		RequestDispatcher rd = request.getRequestDispatcher("/answer.jsp");
 		rd.forward(request, response);
 	}
 
