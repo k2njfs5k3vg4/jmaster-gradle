@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import la.servlet.*;
-
 /**
- * Servlet implementation class ShoAgeServlet
+ * Servlet implementation class ShowAgeServlet
  */
-@WebServlet("/ShoAgeServlet")
+@WebServlet("/ShowAgeServlet")
 
 public class ShowAgeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -68,9 +66,10 @@ public class ShowAgeServlet extends HttpServlet {
 
 		//表示をJAVABEANS
 		PersonBean p = new PersonBean(name, age);
+		request.setAttribute("person", p);
+
 		RequestDispatcher rd = request.getRequestDispatcher("/showAge.jsp");
 		rd.forward(request, response);
-		request.setAttribute("person", p);
 
 	}
 
