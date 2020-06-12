@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import la.servlet.PersonBean;
-//import la.servlet.CalcAge;
-
 /**
  * Servlet implementation class ShowAgeServlet
  */
