@@ -14,7 +14,8 @@
 </head>
 <body>
 
-<%=bean.getValue1() %>+<%=bean.getValue2() %>=<%=bean.getAnswer() %>
+<%-- <%=bean.getValue1() %>+<%=bean.getValue2() %>=<%=bean.getAnswer() %> --%>
+${ plus.value1 } +${ plus.value2}=${ plus.answer }
 
 </body>
 </html>
