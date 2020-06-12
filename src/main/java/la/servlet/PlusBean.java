@@ -2,7 +2,7 @@ package la.servlet;
 
 import java.io.Serializable;
 
-class PlusBean implements Serializable {
+public class PlusBean implements Serializable {
 	private int value1;
 	private int value2;
 	private int answer;
