@@ -33,11 +33,12 @@ public class PlusServlet extends HttpServlet {
 			int i2 = Integer.parseInt(num2);
 			answer = i1 + i2;
 
+			//Beanにまとめる
+			PlusBean bean = new PlusBean(i1, i2, answer);
+
 			//			request.setAttribute("data1", Integer.valueOf(i1));
 			//			request.setAttribute("data2", Integer.valueOf(i2));
-			request.setAttribute("data1", i1);
-			request.setAttribute("data2", i2);
-			request.setAttribute("answer", Integer.valueOf(answer));
+			request.setAttribute("plus", bean);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/AnswerServlet2");
 			rd.forward(request, response);

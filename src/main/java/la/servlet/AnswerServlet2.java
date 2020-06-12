@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class AnswerServlet2
- */
 @WebServlet("/AnswerServlet2")
 public class AnswerServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,13 +17,13 @@ public class AnswerServlet2 extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		Integer num1 = (Integer) request.getAttribute("data1");
-		Integer num2 = (Integer) request.getAttribute("data2");
-		Integer answer = (Integer) request.getAttribute("answer");
+		PlusBean bean = (PlusBean) request.getAttribute("plus");
+		//		Integer num1 = (Integer) request.getAttribute("data1");
+		//		Integer num2 = (Integer) request.getAttribute("data2");
+		//		Integer answer = (Integer) request.getAttribute("answer");
 
 		out.println("<html><head><title>Plus</title></head><body>");
-		out.println(num1 + "+" + num2 + "=" + answer);
+		out.println(bean.getValue1() + "+" + bean.getValue2() + "=" + bean.getAnswer());
 		out.println("</body></html>");
 	}
 
