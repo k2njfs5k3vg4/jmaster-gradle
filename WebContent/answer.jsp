@@ -4,7 +4,7 @@
 <%@ page import="la.servlet.PlusBean" %>
 
 <%
-	PlusBean bean = (PlusBean)request.getAttribute("plus");
+	//PlusBean bean = (PlusBean)request.getAttribute("plus");
 %>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<%=bean.getValue1()%>+<%=bean.getValue2()%>=<%=bean.getAnswer()%>
+${plus.value1}+${plus.value2}=${plus.answer}
 
 </body>
 </html>
