@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CalcAge {
+
 	public int howOld(int year, int month, int date) {
 
 		Calendar cal = Calendar.getInstance();
