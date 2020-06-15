@@ -11,14 +11,18 @@ import java.util.List;
 import la.bean.EmpBean;
 
 public class EmployeeDAO {
-	private final String URL = "jdbc:postgresql:sample";
-	private final String USER = "student";
-	private final String PASS = "himitu";
+	private final String url = "jdbc:postgresql:sample";
+	private final String user = "student";
+	private final String pass = "himitu";
 
 	public List<EmpBean> findAll() throws DAOException {
 		String sql = "SELECT * FROM emp";
-
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
 				PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery();) {
 
