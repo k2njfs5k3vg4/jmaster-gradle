@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import la.bean.EmpBean;
 import la.dao.DAOException;
+import la.dao.EmpDAO;
 
 /**
  * Servlet implementation class EmpServlet
@@ -24,7 +26,7 @@ public class EmpServlet extends HttpServlet {
 		try {
 			EmpDAO dao = new EmpDAO();
 			List<EmpBean> list = dao.findAll();
-			request.setAttribute("Emp", list);
+			request.setAttribute("emp", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/showEmp.jsp");
 			rd.forward(request, response);
 		} catch (DAOException e) {

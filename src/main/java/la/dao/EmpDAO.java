@@ -21,6 +21,8 @@ public class EmpDAO {
 	private void getConnection() throws DAOException {
 		// TODO 自動生成されたメソッド・スタブ
 		try {
+			//JDBCドライバの登録
+			Class.forName("org.postgresql.Driver");
 			//URL,user.passの設定
 			String url = "jdbc:postgresql:sample";
 			String user = "student";

@@ -13,8 +13,8 @@
 <table border="1">
 <tr><td>NO.</td><td>社員名</td><td>年齢</td><td>電話番号</td></tr>
 
-<c:forEach items="${items}" var="item">
-<tr><td>${emp.code}</tr><td>${emp.name}</td><td>${emp.age}</td><td>${emp.tel}</td></tr>
+<c:forEach items="${emp}" var="emp">
+<tr><td>${emp.code}</td><td>${emp.name}</td><td>${emp.age}</td><td>${emp.tel}</td></tr>
 </c:forEach>
 
 </table>
