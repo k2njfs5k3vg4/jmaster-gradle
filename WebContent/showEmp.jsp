@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+    <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Show All Employee</title>
+</head>
+<body>
+
+<table border="1">
+<tr><td>NO.</td><td>社員名</td><td>年齢</td><td>電話番号</td></tr>
+
+<c:forEach items="${items}" var="item">
+<tr><td>${emp.code}</tr><td>${emp.name}</td><td>${emp.age}</td><td>${emp.tel}</td></tr>
+</c:forEach>
+
+</table>
+
+</body>
+</html>
