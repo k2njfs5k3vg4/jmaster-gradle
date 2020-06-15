@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import la.bean.EmpBean;
+import la.dao.DAOException;
+
 /**
  * Servlet implementation class EmpServlet
  */
@@ -20,19 +23,22 @@ public class EmpServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			EmpDAO dao = new EmpDAO();
-			List<ItemBean> list = dao.findAll();
+			List<EmpBean> list = dao.findAll();
 			request.setAttribute("Emp", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/showEmp.jsp");
 			rd.forward(request, response);
 		} catch (DAOException e) {
-
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラー");
+			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
+			rd.forward(request, response);
 		}
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doGet(request, response);
 	}
 
 }
