@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class EmployeeBean implements Serializable {
 	private int code;
 	private String name;
-	private int price;
+	private int age;
+	private String tel;
 
-	public EmployeeBean(int code, String name, int price) {
+	public EmployeeBean(int code, String name, int age, String tel) {
 		this.code = code;
 		this.name = name;
-		this.price = price;
+		this.age = age;
+		this.tel = tel;
 	}
 
 	public int getCode() {
@@ -29,12 +31,20 @@ public class EmployeeBean implements Serializable {
 		this.name = name;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getAge() {
+		return age;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 }
