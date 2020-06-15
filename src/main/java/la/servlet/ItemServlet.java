@@ -21,13 +21,13 @@ import la.dao.ItemDAO;
 public class ItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ItemServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ItemServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,23 +42,23 @@ public class ItemServlet extends HttpServlet {
 			List<ItemBean> list = dao.findAll();
 
 			// Listをスコープに入れてJSPへフォワードする
-			request.setAttribute("items", list);
+			request.setAttribute("emps", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/showItem.jsp");
 			rd.forward(request, response);
-		}catch(DAOException e) {
+		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			RequestDispatcher rd = request.getRequestDispatcher("/errorInternal.jsp");
 			rd.forward(request, response);
 		}
 
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
