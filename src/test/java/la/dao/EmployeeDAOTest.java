@@ -77,7 +77,7 @@ class EmployeeDAOTest {
 	//		}
 	//	}
 	@Test
-	@DisplayName("findAllメソッドからの、SQLの実行結果の取得")
+	@DisplayName("findAllメソッドから全件取得できているか否かの確認")
 	void test5() throws DAOException {
 		try {
 			EmployeeDAO dao = new EmployeeDAO();

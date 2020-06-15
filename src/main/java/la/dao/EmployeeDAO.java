@@ -24,8 +24,11 @@ public class EmployeeDAO {
 		String pass = "himitu";
 		try {
 			//データベースへの接続
+			// JDBCドライバの登録
+			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DAOException("接続に失敗しました。");
 		}
 
