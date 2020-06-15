@@ -10,7 +10,6 @@ public class EmpBean implements Serializable {
 	private String tel;
 
 	public EmpBean(int code, String name, int age, String tel) {
-		super();
 		this.code = code;
 		this.name = name;
 		this.age = age;
