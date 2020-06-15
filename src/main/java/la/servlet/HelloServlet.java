@@ -30,6 +30,7 @@ public class HelloServlet extends HttpServlet {
 	}
 
 	public static String introduce(String name) {
+		//
 		return name + " です";
 	}
 }
