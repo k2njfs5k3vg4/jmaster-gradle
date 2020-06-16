@@ -62,6 +62,26 @@ public class ItemServlet extends HttpServlet {
 				request.setAttribute("emps", list);
 				gotoPage(request, response, "/showItem.jsp");
 
+			}else if (action.equals("delete")){  // deleteのときは削除する
+			int code = Integer.parseInt(request.getParameter("code"));
+			dao.deleteData(code);
+			// 削除後全レコード表示
+			List<ItemBean> list = dao.findAll();
+			// Listをスコープに入れてJSPへフォワードする
+			request.setAttribute("emps", list);
+			gotoPage(request, response, "/showItem.jsp");
+
+			} else if (action.equals("search")){  // searchのときは検索する
+				int age = Integer.parseInt(request.getParameter("age"));
+
+				List<ItemBean> list = dao.findByAge(age);
+				// Listをスコープに入れてJSPへフォワードする
+				request.setAttribute("emps", list);
+				gotoPage(request, response, "/showItem.jsp");
+
+				} else {
+				request.setAttribute("message", "正しく操作してください");
+				gotoPage(request, response, "/errInternal.jsp");
 			}
 
 		} catch (DAOException e) {

@@ -144,7 +144,125 @@ public class ItemDAO {
 				throw new DAOException("リソースの解放に失敗しました。", e);
 			}
 		}
-
 	}
+
+	public int deleteData(int code) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st = null;
+		try {
+			//SQL文の作成
+			String sql = "delete from emp where code = ?";
+
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// 削除するcode番号の設定
+			st.setInt(1, code);
+
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの削除に失敗しました。", e);
+		} finally {
+			try {
+				//リソースの解放
+				if (st != null) {
+					st.close();
+				}
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。", e);
+			}
+		}
+	}
+
+	public List<ItemBean> findByAge(int leAge) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql = "select * from emp where age <= ?";
+
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// 年齢のセット
+			st.setInt(1, leAge);
+			// SQL実行
+			rs = st.executeQuery();
+			// 結果の取得
+			List<ItemBean> list = new ArrayList<ItemBean>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+				String tel = rs.getString("tel");
+				ItemBean bean = new ItemBean(code, name, age, tel);
+				list.add(bean);
+			}
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの検索に失敗しました。", e);
+		} finally {
+			try {
+				//リソースの解放
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。", e);
+			}
+		}
+	}
+
+	public int updateData(int code) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st = null;
+		try {
+			//SQL文の作成
+			String sql = "delete from emp where code = ?";
+
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// 削除するcode番号の設定
+			st.setInt(1, code);
+
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの削除に失敗しました。", e);
+		} finally {
+			try {
+				//リソースの解放
+				if (st != null) {
+					st.close();
+				}
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。", e);
+			}
+		}
+	}
+
 
 }
