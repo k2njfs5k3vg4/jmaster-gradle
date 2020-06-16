@@ -132,4 +132,64 @@ public class EmpDAO {
 		}
 	}
 
+	public void updateEmp(String code, String name, String age, String tel) throws DAOException {
+
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			//sql文の完成
+			String sql = "SELECT * FROM emp Where code=?";
+			String sql2 = "UPDATE emp SET name=? age = ?  tel=? WHERE code = ?";
+
+			//オブジェクトの取得
+			st = con.prepareStatement(sql);
+			int codeInt = Integer.parseInt(code);
+			st.setInt(1, codeInt);
+
+			//SQLの実行
+			rs = st.executeQuery();
+
+			rs.next();
+			if (name == null || name.isEmpty()) {
+				name = rs.getString("name");
+			}
+
+			if (age == null || age.isEmpty()) {
+				age = rs.getString("age");
+			}
+
+			if (tel == null || tel.isEmpty()) {
+				tel = rs.getString("tel");
+			}
+
+			st = con.prepareStatement(sql2);
+			st.setString(1, name);
+			int ageInt = Integer.parseInt(age);
+			st.setInt(2, ageInt);
+			st.setString(3, tel);
+			st.setString(4, code);
+
+			//プレースホルダーに値を入れる
+			int rows = st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの登録に失敗しました");
+		} finally {
+			try {
+				//リソースの開放
+				if (rs != null)
+					rs.close();
+				if (rs != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソース」のか開放に失敗しました");
+			}
+		}
+
+	}
 }

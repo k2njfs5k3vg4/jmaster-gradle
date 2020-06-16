@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1>一件、データベースに追加しました。</h1>
+<h1>${message}</h1>
 <table border="1">
 <tr><td>NO.</td><td>社員名</td><td>年齢</td><td>電話番号</td></tr>
 

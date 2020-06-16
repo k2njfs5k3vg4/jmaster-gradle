@@ -41,6 +41,7 @@ public class InsertServlet extends HttpServlet {
 			dao.setEmp(request.getParameter("name"), request.getParameter("age"), request.getParameter("tel"));
 			List<EmpBean> list = dao.findAll();
 			request.setAttribute("emp", list);
+			request.setAttribute("message", "一件追加しました。");
 			RequestDispatcher rd = request.getRequestDispatcher("/Result.jsp");
 			rd.forward(request, response);
 		} catch (DAOException e) {
