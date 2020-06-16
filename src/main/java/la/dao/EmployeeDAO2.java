@@ -104,9 +104,64 @@ public class EmployeeDAO2 {
 		}
 	}
 
-	public void deleteByPrimaryKey(int code) {
-		// TODO 自動生成されたメソッド・スタブ
+	public int deleteByPrimaryKey(int code) throws DAOException {
+		if (con == null)
+			getConnection();
 
+		String sql = "DELETE FROM emp WHERE code = ?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, code);
+
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+
+			}
+		}
+
+	}
+
+	public List<EmployeeBean> findByName(String target) throws DAOException {
+		if (con == null)
+			getConnection();
+		String sql = "SELECT * FROM emp WHERE name LIKE ?";
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, "%" + target + "%");
+			rs = st.executeQuery();
+			List<EmployeeBean> list = new ArrayList<EmployeeBean>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+				String tel = rs.getString("tel");
+				EmployeeBean bean = new EmployeeBean(code, name, age, tel);
+				list.add(bean);
+			}
+
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 }

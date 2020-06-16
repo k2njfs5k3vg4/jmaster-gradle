@@ -10,7 +10,7 @@
 番号：<input type="number" name="code"><br>
 名前：<input type="text" name="name"><br>
 年齢：<input type="number" name="age"><br>
-電話番号：<input type="text" name="tel"s><br>
+電話番号：<input type="text" name="tel"><br>
 <input type="submit" value="追加">
 <input type="hidden" name="action" value="add">
 </form>
@@ -19,6 +19,12 @@
 番号：<input type="number" name="code"><br>
 <input type="submit" value="削除">
 <input type="hidden" name="action" value="delete">
+</form>
+
+<form action="/jmaster-gradle/EmployeeServlet2" method="post">
+あいまい検索：<input type="text" name="name"><br>
+<input type="submit" value="検索">
+<input type="hidden" name="action" value="search">
 </form>
 
 </body>

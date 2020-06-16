@@ -44,6 +44,11 @@ public class EmployeeServlet2 extends HttpServlet {
 				List<EmployeeBean> list = dao.findAll();
 				request.setAttribute("employees", list);
 				gotoPage(request, response, "/showEmployee2.jsp");
+			} else if (action.contentEquals("search")) {
+				String name = request.getParameter("name");
+				List<EmployeeBean> list = dao.findByName(name);
+				request.setAttribute("employees", list);
+				gotoPage(request, response, "/showEmployee2.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください");
 				gotoPage(request, response, "/errInternal.jsp");
