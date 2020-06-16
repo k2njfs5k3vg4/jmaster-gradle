@@ -67,7 +67,7 @@ input{
 
 <form action="/jmaster-gradle/EmployeeServlet" method="post">
 <h2>社員の削除</h2>
-削除する番号：<input type="text" name="input_code"><br>
+削除する社員番号：<input type="text" name="input_code"><br>
 <input type="hidden" name="action" value="delete_info">
 <input class="btn btn-outline-danger w-75" type="submit" value="削除">
 </form><br>
