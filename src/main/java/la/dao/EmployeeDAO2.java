@@ -164,4 +164,60 @@ public class EmployeeDAO2 {
 		}
 	}
 
+	public int updateEmployee(int code, String name, int age, String tel) throws DAOException {
+		if (name == "" && age == 0 && tel == "") {
+			return 0;
+		}
+
+		if (con == null)
+			getConnection();
+		String sql = "UPDATE emp SET";
+		if (name != "") {
+			sql += " name=?";
+		}
+		if (age != 0) {
+			if (!sql.endsWith(",")) {
+				sql += ",";
+			}
+			sql += " age=?";
+		}
+		if (tel != "") {
+			if (!sql.endsWith(",")) {
+				sql += ",";
+			}
+			sql += " tel=?";
+		}
+		sql += " WHERE code = ?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			int counter = 1;
+			if (name != "") {
+				st.setString(counter, name);
+				counter++;
+			}
+			if (age != 0) {
+				st.setInt(counter, age);
+				counter++;
+			}
+			if (tel != "") {
+				st.setString(counter, tel);
+				counter++;
+			}
+			st.setInt(counter, code);
+
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 }

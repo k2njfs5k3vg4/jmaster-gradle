@@ -37,7 +37,7 @@ public class EmployeeServlet2 extends HttpServlet {
 				List<EmployeeBean> list = dao.findAll();
 				request.setAttribute("employees", list);
 				gotoPage(request, response, "/showEmployee2.jsp");
-			} else if (action.equals("delete")) {
+			} else if (action.contentEquals("delete")) {
 				int code = Integer.parseInt(request.getParameter("code"));
 				dao.deleteByPrimaryKey(code);
 
@@ -49,6 +49,19 @@ public class EmployeeServlet2 extends HttpServlet {
 				List<EmployeeBean> list = dao.findByName(name);
 				request.setAttribute("employees", list);
 				gotoPage(request, response, "/showEmployee2.jsp");
+			} else if (action.contentEquals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				String name = request.getParameter("name");
+				int age = 0;
+				if (request.getParameter("age") != "") {
+					age = Integer.parseInt(request.getParameter("age"));
+				}
+				String tel = request.getParameter("tel");
+				dao.updateEmployee(code, name, age, tel);
+				List<EmployeeBean> list = dao.findAll();
+				request.setAttribute("employees", list);
+				gotoPage(request, response, "/showEmployee2.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください");
 				gotoPage(request, response, "/errInternal.jsp");

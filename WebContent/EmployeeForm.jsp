@@ -25,7 +25,7 @@
 
 <form action="/jmaster-gradle/EmployeeServlet2" method="post">
 <dl>
-<dt>更新するユーザ番号を入力してください。</dt>
+<dt>更新するユーザ番号を入力してください。（必須）</dt>
 <dd><input type="number" name="code"></dd>
 <dt>名前：</dt>
 <dd><input type="text" name="name"></dd>
