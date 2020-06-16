@@ -62,7 +62,7 @@ public class EmployeeServlet extends HttpServlet {
 		} else if ("update_info".equals(action)) {
 			String store = request.getParameter("input_code");
 			int code = 0;
-			if (store != null) {
+			if (!"".equals(store)) {
 				code = Integer.parseInt(store);
 			}
 			String name = request.getParameter("input_name");
