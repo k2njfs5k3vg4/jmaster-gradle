@@ -20,6 +20,10 @@ public class ItemDAO {
 
 	public void getConnection() throws DAOException {
 		try {
+
+			// JDBCドライバの登録
+			Class.forName("org.postgresql.Driver");
+
 			// 初期設定
 			String url = "jdbc:postgresql:sample";
 			String user = "student";
@@ -28,7 +32,7 @@ public class ItemDAO {
 			// DBへの接続
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (Exception e) {
-			throw new DAOException("接続に失敗");
+			throw new DAOException("接続に失敗", e);
 		}
 
 	}
@@ -62,7 +66,7 @@ public class ItemDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
+			throw new DAOException("レコードの取得に失敗しました。", e);
 		} finally {
 			try {
 				//リソースの解放
@@ -75,7 +79,7 @@ public class ItemDAO {
 				close();
 
 			} catch (Exception e) {
-				throw new DAOException("リソースの解放に失敗しました。");
+				throw new DAOException("リソースの解放に失敗しました。", e);
 			}
 		}
 	}
