@@ -14,5 +14,12 @@
 <input type="submit" value="追加">
 <input type="hidden" name="action" value="add">
 </form>
+
+<form action="/jmaster-gradle/EmployeeServlet2" method="post">
+番号：<input type="number" name="code"><br>
+<input type="submit" value="削除">
+<input type="hidden" name="action" value="delete">
+</form>
+
 </body>
 </html>
