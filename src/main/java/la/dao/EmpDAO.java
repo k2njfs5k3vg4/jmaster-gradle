@@ -142,7 +142,7 @@ public class EmpDAO {
 		try {
 			//sql文の完成
 			String sql = "SELECT * FROM emp Where code=?";
-			String sql2 = "UPDATE emp SET name=? age = ?  tel=? WHERE code = ?";
+			String sql2 = "UPDATE emp SET name=?,age=?,tel=? WHERE code = ?";
 
 			//オブジェクトの取得
 			st = con.prepareStatement(sql);
@@ -170,7 +170,9 @@ public class EmpDAO {
 			int ageInt = Integer.parseInt(age);
 			st.setInt(2, ageInt);
 			st.setString(3, tel);
-			st.setString(4, code);
+			st.setInt(4, codeInt);
+
+			System.out.println(st.toString());
 
 			//プレースホルダーに値を入れる
 			int rows = st.executeUpdate();
