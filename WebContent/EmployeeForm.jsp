@@ -18,7 +18,7 @@
 <dd><input type="number" name="age"></dd>
 <dt>電話番号：</dt>
 <dd><input type="text" name="tel"></dd>
-<dd><input type="submit" value="追加"></dd>
+<dd><button class="button1" type="submit" value="追加">追加</button></dd>
 <dd><input type="hidden" name="action" value="add"></dd>
 </dl>
 </form>
@@ -53,7 +53,7 @@
 <dl>
 <dt>あいまい検索：</dt>
 <dd><input type="text" name="name"></dd>
-<dd><input type="submit" value="検索"></dd>
+<dd><button class="button3" type="submit" value="検索">検索</button></dd>
 <dd><input type="hidden" name="action" value="search"></dd>
 </dl>
 </form>
