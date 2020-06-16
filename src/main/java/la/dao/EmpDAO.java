@@ -194,4 +194,38 @@ public class EmpDAO {
 		}
 
 	}
+
+	public void deleteEmp(String code) throws DAOException {
+		// TODO 自動生成されたメソッド・スタブ
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+
+		try {
+			//sql文の完成
+			String sql = "DELETE FROM emp WHERE code=?";
+
+			//オブジェクトの取得
+			st = con.prepareStatement(sql);
+			int codeInt = Integer.parseInt(code);
+			st.setInt(1, codeInt);
+			//SQLの実行
+			int rows = st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの削除に失敗しました");
+		} finally {
+			try {
+				//リソースの開放
+
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソース」のか開放に失敗しました");
+			}
+		}
+	}
 }
