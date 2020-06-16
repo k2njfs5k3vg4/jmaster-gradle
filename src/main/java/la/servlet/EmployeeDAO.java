@@ -131,27 +131,33 @@ public class EmployeeDAO {
 			st1.setInt(1, code);
 			ResultSet rs = st1.executeQuery();
 			rs.next();
-			int original_code = rs.getInt("code");
-			String original_name = rs.getString("name");
-			int original_age = rs.getInt("age");
-			String original_tel = rs.getString("tel");
+
+			// selectで取得したレコードをbeanに一時格納
+			EmployeeBean bean = new EmployeeBean(rs.getInt("code"), rs.getString("name"),
+					rs.getInt("age"), rs.getString("tel"));
+
 			rs.close();
+
+			// 任意のフィールドの上書き
 			if (code != 0) {
-				original_code = code;
+				bean.setCode(code);
 			}
 			if (!"".equals(name)) {
-				original_name = name;
+				bean.setName(name);
 			}
 			if (age != 0) {
-				original_age = age;
+				bean.setAge(age);
 			}
 			if (!"".equals(tel)) {
-				original_tel = tel;
+				bean.setTel(tel);
 			}
-			st2.setString(1, original_name);
-			st2.setInt(2, original_age);
-			st2.setString(3, original_tel);
-			st2.setInt(4, original_code);
+
+			// st2(update)のプレースホルダ設定をbeanで処理
+			st2.setString(1, bean.getName());
+			st2.setInt(2, bean.getAge());
+			st2.setString(3, bean.getTel());
+			st2.setInt(4, bean.getCode());
+
 			int rows = st2.executeUpdate();
 			System.out.println(rows + "件更新");
 		} catch (Exception e) {
