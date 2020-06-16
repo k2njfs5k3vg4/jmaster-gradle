@@ -91,4 +91,60 @@ public class ItemDAO {
 		}
 	}
 
+	public int addData(String name, int age, String tel) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st1 = null;
+		PreparedStatement st2 = null;
+
+		ResultSet rs = null;
+
+		try {
+			//SQL文の作成
+			String sql1 = "insert into emp(code,name,age,tel) values(?,?,?,?)";
+
+			//現在の最終行codeを持ってくる
+			String sql2 = "select * from emp order by code desc";
+			st2 = con.prepareStatement(sql2);
+			rs = st2.executeQuery();
+			rs.next();
+			int codeMax = rs.getInt("code");
+
+			//PreparedStatementオブジェクトの取得
+			st1 = con.prepareStatement(sql1);
+			st1.setInt(1, codeMax + 1);
+			st1.setString(2, name);
+			st1.setInt(3, age);
+			st1.setString(4, tel);
+
+			int rows = st1.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの追加に失敗しました。", e);
+		} finally {
+			try {
+				//リソースの解放
+				if (st1 != null) {
+					st1.close();
+				}
+				if (st2 != null) {
+					st2.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+
+				close();
+
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。", e);
+			}
+		}
+
+	}
+
 }
