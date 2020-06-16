@@ -18,6 +18,7 @@
 				<td>年齢</td>
 				<td>電話番号</td>
 				<td>削除</td>
+				<td>更新</td>
 			</tr>
 			<c:forEach items="${employees}" var="employee">
 				<tr>
@@ -30,6 +31,7 @@
 						<input type="hidden" name="action" value="delete">
 						<input type="submit" value="削除">
 					</td>
+					<td><a href="/jmaster-gradle/EmployeeUpdate.jsp?code=${employee.code}&name=${employee.name}&age=${employee.age}&tel=${employee.tel}">更新</a></td>
 				</tr>
 
 			</c:forEach>

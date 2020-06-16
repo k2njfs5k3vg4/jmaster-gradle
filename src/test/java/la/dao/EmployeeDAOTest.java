@@ -84,6 +84,22 @@ class EmployeeDAOTest extends EmployeeDAO {
 
 	}
 
+	@Test
+	void test4() {
+		EmployeeDAO e = new EmployeeDAO();
+		try {
+			EmpBean bean = e.update(2, "はしびろこう", 31, "080-5555-5555");
+
+			Assertions.assertEquals(2, bean.getCode());
+			Assertions.assertEquals("はしびろこう", bean.getName());
+			Assertions.assertEquals(31, bean.getAge());
+			Assertions.assertEquals("080-5555-5555", bean.getTel());
+
+		} catch (Exception e2) {
+			fail();
+		}
+	}
+
 	@BeforeEach
 	void delete() {
 		String url = "jdbc:postgresql:sample";

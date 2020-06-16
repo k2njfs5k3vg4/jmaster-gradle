@@ -49,19 +49,20 @@ public class EmployeeServlet extends HttpServlet {
 			String age = request.getParameter("age");
 			String tel = request.getParameter("tel");
 
-			if (!(code != null && !"".equals(code))) {
+			if (code == null || "".equals(code)) {
 				doGet(request, response);
+				return;
 			}
 
-			if (!(name != null && !"".equals(name))) {
+			if (name == null || "".equals(name)) {
 				name = "未登録";
 			}
 
-			if (!(age != null && !"".equals(age))) {
+			if (age == null || "".equals(age)) {
 				age = "0";
 			}
 
-			if (!(tel != null && !"".equals(tel))) {
+			if (tel == null || "".equals(tel)) {
 				tel = "未登録";
 			}
 
@@ -88,6 +89,44 @@ public class EmployeeServlet extends HttpServlet {
 			try {
 				int i1 = Integer.parseInt(code);
 				e.delete(i1);
+
+			} catch (DAOException e2) {
+				e2.printStackTrace();
+
+			} catch (Exception e3) {
+
+				e3.printStackTrace();
+			}
+		} else if ("update".equals(type)) {
+			String code = request.getParameter("code");
+			String name = request.getParameter("name");
+			String age = request.getParameter("age");
+			String tel = request.getParameter("tel");
+
+			if (code == null || "".equals(code)) {
+				doGet(request, response);
+				return;
+			}
+
+			if (name == null || "".equals(name)) {
+				name = "未登録";
+			}
+
+			if (age == null || "".equals(age)) {
+				age = "0";
+			}
+
+			if (tel == null || "".equals(tel)) {
+				tel = "未登録";
+			}
+
+			EmployeeDAO e = new EmployeeDAO();
+
+			try {
+				int i1 = Integer.parseInt(code);
+				int i2 = Integer.parseInt(age);
+
+				e.update(i1, name, i2, tel);
 
 			} catch (DAOException e2) {
 				e2.printStackTrace();

@@ -112,4 +112,47 @@ public class EmployeeDAO {
 			throw new DAOException("error" + e.getMessage());
 		}
 	}
+
+	public EmpBean update(int code, String name, int age, String tel) throws DAOException {
+		String sql = "UPDATE emp SET name=?, age=?, tel=? WHERE code=?";
+		String sql2 = "SELECT * FROM emp where code=?";
+		EmpBean bean = null;
+
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
+				PreparedStatement st = con.prepareStatement(sql);
+				PreparedStatement st2 = con.prepareStatement(sql2);) {
+
+			st.setString(1, name);
+			st.setInt(2, age);
+			st.setString(3, tel);
+			st.setInt(4, code);
+
+			st.executeUpdate();
+
+			st2.setInt(1, code);
+			try (ResultSet rs = st2.executeQuery();) {
+
+				while (rs.next()) {
+					bean = new EmpBean(rs.getInt("code"), rs.getString("name"), rs.getInt("age"),
+							rs.getString("tel"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("データベースの操作に失敗しました。" + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("error" + e.getMessage());
+		}
+
+		return bean;
+
+	}
+
 }
