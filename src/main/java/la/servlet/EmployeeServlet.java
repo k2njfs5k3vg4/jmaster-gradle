@@ -81,7 +81,21 @@ public class EmployeeServlet extends HttpServlet {
 				e3.printStackTrace();
 			}
 		} else if ("delete".equals(type)) {
+			String code = request.getParameter("code");
 
+			EmployeeDAO e = new EmployeeDAO();
+
+			try {
+				int i1 = Integer.parseInt(code);
+				e.delete(i1);
+
+			} catch (DAOException e2) {
+				e2.printStackTrace();
+
+			} catch (Exception e3) {
+
+				e3.printStackTrace();
+			}
 		}
 
 		doGet(request, response);

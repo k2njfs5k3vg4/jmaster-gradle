@@ -87,4 +87,29 @@ public class EmployeeDAO {
 
 	}
 
+	public void delete(int code) throws DAOException {
+
+		String sql = "DELETE FROM emp where code=?";
+
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
+				PreparedStatement st = con.prepareStatement(sql);) {
+
+			st.setInt(1, code);
+
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("データベースの操作に失敗しました。" + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("error" + e.getMessage());
+		}
+	}
 }

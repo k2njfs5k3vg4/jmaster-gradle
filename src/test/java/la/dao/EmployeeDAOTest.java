@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -51,6 +52,36 @@ class EmployeeDAOTest extends EmployeeDAO {
 		} catch (Exception e2) {
 			fail();
 		}
+	}
+
+	@Test
+	void test3() {
+		String url = "jdbc:postgresql:sample";
+		String user = "student";
+		String pass = "himitu";
+
+		EmployeeDAO e = new EmployeeDAO();
+		try {
+			e.delete(1);
+		} catch (DAOException e1) {
+			e1.printStackTrace();
+		}
+
+		String sql = "SELECT * FROM emp where code=1";
+
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				PreparedStatement st = con.prepareStatement(sql);) {
+
+			st.executeUpdate();
+			try (ResultSet rs = st.executeQuery();) {
+				while (rs.next()) {
+					fail();
+				}
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
 	}
 
 	@BeforeEach
