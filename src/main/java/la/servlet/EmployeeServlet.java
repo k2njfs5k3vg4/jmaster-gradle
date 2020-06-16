@@ -38,6 +38,52 @@ public class EmployeeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		String type = request.getParameter("action");
+
+		if ("add".equals(type)) {
+
+			String code = request.getParameter("code");
+			String name = request.getParameter("name");
+			String age = request.getParameter("age");
+			String tel = request.getParameter("tel");
+
+			if (!(code != null && !"".equals(code))) {
+				doGet(request, response);
+			}
+
+			if (!(name != null && !"".equals(name))) {
+				name = "未登録";
+			}
+
+			if (!(age != null && !"".equals(age))) {
+				age = "0";
+			}
+
+			if (!(tel != null && !"".equals(tel))) {
+				tel = "未登録";
+			}
+
+			EmployeeDAO e = new EmployeeDAO();
+
+			try {
+				int i1 = Integer.parseInt(code);
+				int i2 = Integer.parseInt(age);
+
+				e.add(i1, name, i2, tel);
+
+			} catch (DAOException e2) {
+				e2.printStackTrace();
+
+			} catch (Exception e3) {
+
+				e3.printStackTrace();
+			}
+		} else if ("delete".equals(type)) {
+
+		}
+
 		doGet(request, response);
 	}
 

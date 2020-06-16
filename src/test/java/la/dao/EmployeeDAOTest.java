@@ -37,8 +37,24 @@ class EmployeeDAOTest extends EmployeeDAO {
 		}
 	}
 
+	@Test
+	void test2() {
+		EmployeeDAO e = new EmployeeDAO();
+		try {
+			EmpBean bean = e.add(3, "田中", 31, "080-3333-3333");
+
+			Assertions.assertEquals(3, bean.getCode());
+			Assertions.assertEquals("田中", bean.getName());
+			Assertions.assertEquals(31, bean.getAge());
+			Assertions.assertEquals("080-3333-3333", bean.getTel());
+
+		} catch (Exception e2) {
+			fail();
+		}
+	}
+
 	@BeforeEach
-	void test1() {
+	void delete() {
 		String url = "jdbc:postgresql:sample";
 		String user = "student";
 		String pass = "himitu";
