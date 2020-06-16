@@ -3,6 +3,15 @@
 
 
 <form action="/jmaster-gradle/ItemServlet" method="post">
+更新したいcode番号：<input type="text" name="code">
+名前<input type="text" name="name">
+年齢<input type="text" name="age">
+電話<input type="text" name="tel">
+<input type="submit" value="更新">
+<input type="hidden" name="action" value="update">
+</form>
+
+<form action="/jmaster-gradle/ItemServlet" method="post">
 追加：名前<input type="text" name="name">
 年齢<input type="text" name="age">
 電話<input type="text" name="tel">

@@ -230,7 +230,7 @@ public class ItemDAO {
 		}
 	}
 
-	public int updateData(int code) throws DAOException {
+	public int updateData(int code, String name, int age, String tel) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
@@ -238,14 +238,42 @@ public class ItemDAO {
 		PreparedStatement st = null;
 		try {
 			//SQL文の作成
-			String sql = "delete from emp where code = ?";
+			String sql;
 
-			//PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// 削除するcode番号の設定
-			st.setInt(1, code);
+			int rowsName = 0;
+			if (name != null || name.length() != 0) {
+				sql = "update emp set name=? where code = ?";
+				//PreparedStatementオブジェクトの取得
+				st = con.prepareStatement(sql);
+				// 更新するcode番号の設定
+				st.setString(1, name);
+				st.setInt(2, code);
+				rowsName = st.executeUpdate();
+			}
 
-			int rows = st.executeUpdate();
+			int rowsAge = 0;
+			if (age != 0) {
+				sql = "update emp set age=? where code = ?";
+				//PreparedStatementオブジェクトの取得
+				st = con.prepareStatement(sql);
+				// 更新するcode番号の設定
+				st.setInt(1, age);
+				st.setInt(2, code);
+				rowsAge = st.executeUpdate();
+			}
+
+			int rowsTel = 0;
+			if (tel != null || tel.length() != 0) {
+				sql = "update emp set tel=? where code = ?";
+				//PreparedStatementオブジェクトの取得
+				st = con.prepareStatement(sql);
+				// 更新するcode番号の設定
+				st.setString(1, tel);
+				st.setInt(2, code);
+				rowsTel = st.executeUpdate();
+			}
+
+			int rows = rowsName + rowsAge + rowsTel;
 			return rows;
 
 		} catch (Exception e) {
@@ -263,6 +291,5 @@ public class ItemDAO {
 			}
 		}
 	}
-
 
 }

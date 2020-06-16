@@ -41,37 +41,36 @@ public class ItemServlet extends HttpServlet {
 			// パラメータの解析
 			String action = request.getParameter("action");
 
-
 			ItemDAO dao = new ItemDAO();
 
 			// パラメータなしの場合は全レコード表示
-			if (action == null || action.length()==0) {
+			if (action == null || action.length() == 0) {
 				List<ItemBean> list = dao.findAll();
 				// Listをスコープに入れてJSPへフォワードする
 				request.setAttribute("emps", list);
 				gotoPage(request, response, "/showItem.jsp");
 
-			} else if (action.equals("add")){  // addのときは追加する
+			} else if (action.equals("add")) { // addのときは追加する
 				String name = request.getParameter("name");
 				int age = Integer.parseInt(request.getParameter("age"));
 				String tel = request.getParameter("tel");
-				dao.addData(name,age,tel);
+				dao.addData(name, age, tel);
 				// 追加後全レコード表示
 				List<ItemBean> list = dao.findAll();
 				// Listをスコープに入れてJSPへフォワードする
 				request.setAttribute("emps", list);
 				gotoPage(request, response, "/showItem.jsp");
 
-			}else if (action.equals("delete")){  // deleteのときは削除する
-			int code = Integer.parseInt(request.getParameter("code"));
-			dao.deleteData(code);
-			// 削除後全レコード表示
-			List<ItemBean> list = dao.findAll();
-			// Listをスコープに入れてJSPへフォワードする
-			request.setAttribute("emps", list);
-			gotoPage(request, response, "/showItem.jsp");
+			} else if (action.equals("delete")) { // deleteのときは削除する
+				int code = Integer.parseInt(request.getParameter("code"));
+				dao.deleteData(code);
+				// 削除後全レコード表示
+				List<ItemBean> list = dao.findAll();
+				// Listをスコープに入れてJSPへフォワードする
+				request.setAttribute("emps", list);
+				gotoPage(request, response, "/showItem.jsp");
 
-			} else if (action.equals("search")){  // searchのときは検索する
+			} else if (action.equals("search")) { // searchのときは検索する
 				int age = Integer.parseInt(request.getParameter("age"));
 
 				List<ItemBean> list = dao.findByAge(age);
@@ -79,12 +78,27 @@ public class ItemServlet extends HttpServlet {
 				request.setAttribute("emps", list);
 				gotoPage(request, response, "/showItem.jsp");
 
-				} else {
+			} else if (action.equals("update")) { // updateのときは更新する
+				int code = Integer.parseInt(request.getParameter("code"));
+				String name = request.getParameter("name");
+				int age = Integer.parseInt(request.getParameter("age"));
+				String tel = request.getParameter("tel");
+
+				dao.updateData(code, name, age, tel);
+				// 更新後全レコード表示
+				List<ItemBean> list = dao.findAll();
+				// Listをスコープに入れてJSPへフォワードする
+				request.setAttribute("emps", list);
+				gotoPage(request, response, "/showItem.jsp");
+
+			} else {
 				request.setAttribute("message", "正しく操作してください");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 
-		} catch (DAOException e) {
+		} catch (
+
+		DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			RequestDispatcher rd = request.getRequestDispatcher("/errorInternal.jsp");
