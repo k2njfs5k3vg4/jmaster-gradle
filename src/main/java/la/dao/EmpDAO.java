@@ -127,7 +127,7 @@ public class EmpDAO {
 					st.close();
 				close();
 			} catch (Exception e) {
-				throw new DAOException("リソース」のか開放に失敗しました");
+				throw new DAOException("リソース」の開放に失敗しました");
 			}
 		}
 	}
@@ -189,7 +189,7 @@ public class EmpDAO {
 					st.close();
 				close();
 			} catch (Exception e) {
-				throw new DAOException("リソース」のか開放に失敗しました");
+				throw new DAOException("リソース」の開放に失敗しました");
 			}
 		}
 
@@ -224,7 +224,7 @@ public class EmpDAO {
 					st.close();
 				close();
 			} catch (Exception e) {
-				throw new DAOException("リソース」のか開放に失敗しました");
+				throw new DAOException("リソース」の開放に失敗しました");
 			}
 		}
 	}

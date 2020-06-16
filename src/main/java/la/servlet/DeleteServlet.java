@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import la.bean.EmpBean;
 import la.dao.DAOException;
-import la.dao.EmpDAOOOO;
+import la.dao.EmpDAO;
 
 /**
  * Servlet implementation class DeleteServlet
@@ -36,7 +36,7 @@ public class DeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			EmpDAOOOO dao = new EmpDAOOOO();
+			EmpDAO dao = new EmpDAO();
 
 			dao.deleteEmp(request.getParameter("code"));
 			List<EmpBean> list = dao.findAll();

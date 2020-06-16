@@ -37,6 +37,20 @@ NO.<input type = number name = "code"><br>
 
 </div>
 
+
+<input type="button" value="内容削除" onclick="clickBtn2()" />
+
+
+<div id="p2">
+
+<form action="/jmaster-gradle/DeleteServlet" method="post">
+消したい人の番号<br>
+NO.<input type = number name = "code"><br>
+<input type=submit value="登録">
+</form>
+
+</div>
+
 <script>
 //初期表示は非表示
 document.getElementById("p1").style.display ="none";
@@ -50,6 +64,21 @@ function clickBtn1(){
 	}else{
 		// blockで表示
 		p1.style.display ="block";
+	}
+}
+
+//初期表示は非表示
+document.getElementById("p2").style.display ="none";
+
+function clickBtn2(){
+	const p2 = document.getElementById("p2");
+
+	if(p2.style.display=="block"){
+		// noneで非表示
+		p2.style.display ="none";
+	}else{
+		// blockで表示
+		p2.style.display ="block";
 	}
 }
 </script>
