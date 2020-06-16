@@ -22,7 +22,7 @@ int age = Integer.parseInt(ageString);
 <body>
 	<h1>従業員更新</h1>
 	<form action="/jmaster-gradle/EmployeeServlet" method="post">
-		No : <input type="text" name="code" value="<%=code %>"><br>
+		No : <%=code %><input type="hidden" name="code" value="<%=code %>"><br>
 		従業員名 : <input type="text" name="name" value="<%=name %>"><br>
 		年齢 : <input type="text" name="age" value="<%=age %>"><br>
 		電話番号 : <input type="text" name="tel" value="<%=tel %>"><br>

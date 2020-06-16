@@ -44,10 +44,8 @@ public class EmployeeDAO {
 		}
 	}
 
-	public EmpBean add(int code, String name, int age, String tel) throws DAOException {
-
-		String sql = "INSERT INTO emp(code,name,age,tel) VALUES(?,?,?,?)";
-		String sql2 = "SELECT * FROM emp where code=?";
+	public EmpBean find(int code) throws DAOException {
+		String sql = "SELECT * FROM emp where code=?";
 		EmpBean bean = null;
 
 		try {
@@ -57,18 +55,11 @@ public class EmployeeDAO {
 		}
 
 		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
-				PreparedStatement st = con.prepareStatement(sql);
-				PreparedStatement st2 = con.prepareStatement(sql2);) {
+				PreparedStatement st = con.prepareStatement(sql);) {
 
 			st.setInt(1, code);
-			st.setString(2, name);
-			st.setInt(3, age);
-			st.setString(4, tel);
 
-			st.executeUpdate();
-
-			st2.setInt(1, code);
-			try (ResultSet rs = st2.executeQuery();) {
+			try (ResultSet rs = st.executeQuery();) {
 
 				while (rs.next()) {
 					bean = new EmpBean(rs.getInt("code"), rs.getString("name"), rs.getInt("age"),
@@ -84,6 +75,37 @@ public class EmployeeDAO {
 		}
 
 		return bean;
+	}
+
+	public EmpBean add(int code, String name, int age, String tel) throws DAOException {
+
+		String sql = "INSERT INTO emp(code,name,age,tel) VALUES(?,?,?,?)";
+
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
+				PreparedStatement st = con.prepareStatement(sql);) {
+
+			st.setInt(1, code);
+			st.setString(2, name);
+			st.setInt(3, age);
+			st.setString(4, tel);
+
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("データベースの操作に失敗しました。" + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("error" + e.getMessage());
+		}
+
+		return this.find(code);
 
 	}
 
@@ -114,44 +136,8 @@ public class EmployeeDAO {
 	}
 
 	public EmpBean update(int code, String name, int age, String tel) throws DAOException {
-		String sql = "UPDATE emp SET name=?, age=?, tel=? WHERE code=?";
-		String sql2 = "SELECT * FROM emp where code=?";
-		EmpBean bean = null;
-
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try (Connection con = DriverManager.getConnection(this.url, this.user, this.pass);
-				PreparedStatement st = con.prepareStatement(sql);
-				PreparedStatement st2 = con.prepareStatement(sql2);) {
-
-			st.setString(1, name);
-			st.setInt(2, age);
-			st.setString(3, tel);
-			st.setInt(4, code);
-
-			st.executeUpdate();
-
-			st2.setInt(1, code);
-			try (ResultSet rs = st2.executeQuery();) {
-
-				while (rs.next()) {
-					bean = new EmpBean(rs.getInt("code"), rs.getString("name"), rs.getInt("age"),
-							rs.getString("tel"));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("データベースの操作に失敗しました。" + e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("error" + e.getMessage());
-		}
-
-		return bean;
+		this.delete(code);
+		return this.add(code, name, age, tel);
 
 	}
 
