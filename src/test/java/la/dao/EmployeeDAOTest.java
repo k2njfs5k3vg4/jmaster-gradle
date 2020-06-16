@@ -72,7 +72,6 @@ class EmployeeDAOTest extends EmployeeDAO {
 		try (Connection con = DriverManager.getConnection(url, user, pass);
 				PreparedStatement st = con.prepareStatement(sql);) {
 
-			st.executeUpdate();
 			try (ResultSet rs = st.executeQuery();) {
 				while (rs.next()) {
 					fail();

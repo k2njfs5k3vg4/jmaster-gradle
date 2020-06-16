@@ -7,15 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrapの使い方</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<title>従業員</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"></head>
 <body>
 <div class="container">
-	<form action="/jmaster-gradle/EmployeeServlet" method="post">
-	<table border="1" class="table table-striped">
-		<thead class="thead-light">
+	<div class="alert alert-dark">
+			<h1>従業員一覧</h1>
+		</div>
+	<table border="1" class="table table-dark">
+		<thead class="thead-dark">
 			<tr>
 				<th scope="col">NO</th>
 				<th scope="col">従業員名</th>
@@ -33,23 +33,29 @@
 					<td>${employee.age}</td>
 					<td>${employee.tel}</td>
 					<td>
+						<form action="/jmaster-gradle/EmployeeServlet" method="post">
 						<input class="btn btn-primary" type="hidden" name="code" value="${employee.code}">
 						<input class="btn btn-primary" type="hidden" name="action" value="delete">
 						<input class="btn btn-danger" type="submit" value="削除">
+						</form>
 					</td>
 					<td><a class="btn btn-primary" href="/jmaster-gradle/EmployeeUpdate.jsp?code=${employee.code}&name=${employee.name}&age=${employee.age}&tel=${employee.tel}">更新</a></td>
 				</tr>
 
 			</c:forEach>
+
 		</tbody>
 		</table>
-	</form>
 
 
+	<div class="alert alert-dark">
+		<h1>従業員追加</h1>
+	</div>
 	<form action="/jmaster-gradle/EmployeeServlet" method="post">
 
-		<table border="1" class="table table-striped">
-		<thead class="thead-light">
+		<table border="1" class="table table-dark">
+
+		<thead class="table-dark">
 			<tr>
 				<th scope="col">NO</th>
 				<th scope="col">従業員名</th>
@@ -66,7 +72,7 @@
 					<td><input type="text" name="age"><br></td>
 					<td> <input type="text" name="tel"></td>
 					<td>
-					<input type="hidden" name="action" value="add"> <input class="btn btn-primary" type="submit" value="追加">
+					<input type="hidden" name="action" value="add"> <input class="btn btn-success" type="submit" value="追加">
 					</td>
 				</tr>
 
@@ -76,7 +82,8 @@
 </div>
 
 
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 </body>
 </html>
