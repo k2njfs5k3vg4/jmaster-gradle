@@ -34,23 +34,49 @@ public class ItemServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// パラメータの解析はなし
 
-		// モデルを使って全商品を取得
 		try {
-			ItemDAO dao = new ItemDAO();
-			List<ItemBean> list = dao.findAll();
+			request.setCharacterEncoding("UTF-8");
 
-			// Listをスコープに入れてJSPへフォワードする
-			request.setAttribute("emps", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/showItem.jsp");
-			rd.forward(request, response);
+			// パラメータの解析
+			String action = request.getParameter("action");
+
+
+			ItemDAO dao = new ItemDAO();
+
+			// パラメータなしの場合は全レコード表示
+			if (action == null || action.length()==0) {
+				List<ItemBean> list = dao.findAll();
+				// Listをスコープに入れてJSPへフォワードする
+				request.setAttribute("emps", list);
+				gotoPage(request, response, "/showItem.jsp");
+
+			} else if (action.equals("add")){  // addのときは追加する
+				String name = request.getParameter("name");
+				int age = Integer.parseInt(request.getParameter("age"));
+				String tel = request.getParameter("tel");
+				dao.addData(name,age,tel);
+				// 追加後全レコード表示
+				List<ItemBean> list = dao.findAll();
+				// Listをスコープに入れてJSPへフォワードする
+				request.setAttribute("emps", list);
+				gotoPage(request, response, "/showItem.jsp");
+
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			RequestDispatcher rd = request.getRequestDispatcher("/errorInternal.jsp");
 			rd.forward(request, response);
 		}
+
+	}
+
+	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)
+			throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher(page);
+		rd.forward(request, response);
 
 	}
 

@@ -12,6 +12,9 @@
 </head>
 <body>
 
+<jsp:include page="empForm.jsp"/>
+<hr>
+
 <table border="1">
 
 <tr><td>code</td><td>name</td><td>age</td><td>tel</td></tr>
