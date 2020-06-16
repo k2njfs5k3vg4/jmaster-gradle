@@ -14,15 +14,15 @@
 <body>
 <div class="container">
 	<form action="/jmaster-gradle/EmployeeServlet" method="post">
-		<table border="1" class="table table-dark">
-		<thead class="thead-dark">
+	<table border="1" class="table table-striped">
+		<thead class="thead-light">
 			<tr>
-				<td>NO</td>
-				<td>従業員名</td>
-				<td>年齢</td>
-				<td>電話番号</td>
-				<td>削除</td>
-				<td>更新</td>
+				<th scope="col">NO</th>
+				<th scope="col">従業員名</th>
+				<th scope="col">年齢</th>
+				<th scope="col">電話番号</th>
+				<th scope="col">削除</th>
+				<th scope="col">更新</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -44,12 +44,34 @@
 		</tbody>
 		</table>
 	</form>
+
+
 	<form action="/jmaster-gradle/EmployeeServlet" method="post">
-		<h1>従業員追加</h1>
-		NO : <input type="text" name="code"><br>
-		従業員名 : <input type="text" name="name"><br>
-		年齢 : <input type="text" name="age"><br> 電話番号 : <input type="text" name="tel"><br>
-		<input type="hidden" name="action" value="add"> <input class="btn btn-primary" type="submit" value="追加">
+
+		<table border="1" class="table table-striped">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">NO</th>
+				<th scope="col">従業員名</th>
+				<th scope="col">年齢</th>
+				<th scope="col">電話番号</th>
+				<th scope="col">追加</th>
+			</tr>
+		</thead>
+		<tbody>
+
+				<tr>
+					<td><input type="text" name="code"></td>
+					<td> <input type="text" name="name"></td>
+					<td><input type="text" name="age"><br></td>
+					<td> <input type="text" name="tel"></td>
+					<td>
+					<input type="hidden" name="action" value="add"> <input class="btn btn-primary" type="submit" value="追加">
+					</td>
+				</tr>
+
+		</tbody>
+		</table>
 	</form>
 </div>
 
