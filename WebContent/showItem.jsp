@@ -14,7 +14,31 @@
 <c:forEach items="${employees}" var="employee">
 <tr><td>${employee.code}</td><td>${employee.name}</td><td>${employee.age}</td><td>${employee.tel}</td></tr>
 </c:forEach>
-</table>
+</table><br>
+
+<form action="/jmaster-gradle/EmployeeServlet" method="post">
+社員番号：<input type="text" name="input_code"><br>
+名前：<input type="text" name="input_name"><br>
+年齢：<input type="text" name="input_age"><br>
+電話番号<input type="text" name="input_tel"><br>
+<input type="hidden" name="action" value="add_info">
+<input type="submit" value="追加">
+</form><br>
+
+<form action="/jmaster-gradle/EmployeeServlet" method="post">
+削除する番号：<input type="text" name="input_code"><br>
+<input type="hidden" name="action" value="delete_info">
+<input type="submit" value="削除">
+</form><br>
+
+<form action="/jmaster-gradle/EmployeeServlet" method="post">
+社員番号：<input type="text" name="input_code"><br>
+名前：<input type="text" name="input_name"><br>
+年齢：<input type="text" name="input_age"><br>
+電話番号<input type="text" name="input_tel"><br>
+<input type="hidden" name="action" value="update_info">
+<input type="submit" value="社員情報の更新">
+</form><br>
 
 </body>
 </html>

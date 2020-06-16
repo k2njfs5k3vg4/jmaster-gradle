@@ -33,7 +33,53 @@ public class EmployeeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
+		String action = request.getParameter("action");
+		if ("add_info".equals(action)) {
+			String store = request.getParameter("input_code");
+			int code = Integer.parseInt(store);
+			String name = request.getParameter("input_name");
+			store = request.getParameter("input_age");
+			int age = Integer.parseInt(store);
+			String tel = request.getParameter("input_tel");
+			EmployeeDAO dao = new EmployeeDAO();
+			try {
+				dao.addEmployee(code, name, age, tel);
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+		} else if ("delete_info".equals(action)) {
+			String store = request.getParameter("input_code");
+			int code = Integer.parseInt(store);
+			EmployeeDAO dao = new EmployeeDAO();
+			try {
+				dao.deleteEmployee(code);
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+
+		} else if ("update_info".equals(action)) {
+			String store = request.getParameter("input_code");
+			int code = 0;
+			if (store != null) {
+				code = Integer.parseInt(store);
+			}
+			String name = request.getParameter("input_name");
+			store = request.getParameter("input_age");
+			int age = 0;
+			if (!"".equals(store)) {
+				age = Integer.parseInt(store);
+			}
+			String tel = request.getParameter("input_tel");
+			EmployeeDAO dao = new EmployeeDAO();
+			try {
+				dao.updateEmployee(code, name, age, tel);
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+
+		}
 		doGet(request, response);
 	}
-
 }
