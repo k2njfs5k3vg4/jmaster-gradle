@@ -87,4 +87,49 @@ public class EmpDAO {
 
 	}
 
+	public void setEmp(String name, String age, String tel) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			//sql文の完成
+			String sql = "SELECT * FROM emp";
+			String sql2 = "INSERT INTO emp(code,name,age, tel) VALUES(?,?,?,?)";
+			//オブジェクトの取得
+			st = con.prepareStatement(sql);
+			//SQLの実行
+			rs = st.executeQuery();
+			//最新の番号取得
+			int code = 0;
+			while (rs.next()) {
+				code = rs.getInt("code");
+			}
+			st = con.prepareStatement(sql2);
+			//プレースホルダーに値を入れる
+			st.setInt(1, code + 1);
+			st.setString(2, name);
+			int ageInt = Integer.parseInt(age);
+			st.setInt(3, ageInt);
+			st.setString(4, tel);
+			int rows = st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの登録に失敗しました");
+		} finally {
+			try {
+				//リソースの開放
+				if (rs != null)
+					rs.close();
+				if (rs != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソース」のか開放に失敗しました");
+			}
+		}
+	}
+
 }
