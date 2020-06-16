@@ -21,7 +21,7 @@ public class EmployeeDAO {
 			getConnection();
 
 		}
-		String sql = "SELECT * FROM emp";
+		String sql = "SELECT * FROM emp ORDER BY code";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery();) {
